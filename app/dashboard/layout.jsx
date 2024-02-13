@@ -2,13 +2,12 @@ import SideNav from "@components/sideNav";
 
 export default function Layout({ children }) {
   return (
-      <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-        <div className="w-full flex-none md:w-64">
+      <div className="bg-blue-900 w-screen h-screen flex">
           <SideNav />
-        </div>
-        <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
-          {children}
-        </div>
+          <div className="bg-white flex-grow mt-1 mr-2 mb-2 rounded-lg p-4">
+            {children}
+          </div>
+          
       </div>
   );
 }

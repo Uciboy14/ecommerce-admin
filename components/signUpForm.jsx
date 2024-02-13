@@ -35,7 +35,7 @@ export function SignUpForm() {
       // otherwise, show the error message
       console.log("Error: ", response);
       setError(response.error);
-    }
+    }  
   };
 
   // return a form element with name, email, and password fields, and a sign up button
