@@ -1,5 +1,5 @@
-import Provider from '@components/Provider'
-import '@styles/globals.css'
+import Provider from '../components/Provider'
+import '../styles/globals.css'
 
 export const metadata = {
     title: "ItHardwarePart",
@@ -12,10 +12,10 @@ const RootLayout = ({ children }) => {
         <body>
             <Provider>
                 <div className='main'>
-                    <div className='gradient'/>
+                    <div className=''/>
                 </div>
 
-                <main className='app'>
+                <main className='app font-inter'>
                     {children}
                 </main>
             </Provider>

@@ -1,9 +1,7 @@
 import { NextAuthOptions, getServerSession } from "next-auth";
-import { useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
 
-import User from "@models/user";
-import { connectToDB } from '@utils/database';
+import User from "../models/user";
+import { connectToDB } from '../utils/database';
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -46,14 +44,13 @@ export const authConfig: NextAuthOptions = {
                           email: userExists.email,
                           name: userExists.username, // assuming you have a name field in your user model
                           image: userExists.image,
-                          token: token
+                          role: userExists.role,
                       }
                     } else {
                       // authentication failed
                       // return null or throw an error
                       return null;
                     }
-                    
                     
         } catch (error) {
             console.log("Error checking if user exists: ", error.message);
@@ -68,19 +65,39 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    
-  }
+    async session({ session, user, token }) {
+      // Add the user role to the session object
+      console.log("user role: ", user, "Token: ", token)
+      if (token?.role) {
+        // Use a type assertion
+        console.log("token role: ", token.role)
+        session.role = token.role as string;
+
+        // Or use a type guard
+        if (typeof token.role === 'string') {
+          session.role = token.role;
+        }
+      }
+      console.log("session: ", session)
+      return session; // Return the session object
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      // Add the user role to the token object
+      if (user?.role) {
+        token.role = user.role;
+      }
+      return token; // Return the token object
+    },
+  },
+  
 };
 
-export async function loginIsRequiredServer() {
-  const session = await getServerSession(authConfig);
-  if (!session) return redirect("/login");
-}
-
-export function loginIsRequiredClient() {
-  if (typeof window !== "undefined") {
-    const session = useSession();
-    const router = useRouter();
-    if (!session) router.push("/login");
+export async function isAdminRequest(req,res) {
+  const session = await getServerSession(req,res,authConfig);
+  if (session?.role !== "admin") {
+    res.status(401);
+    res.end();
+    throw 'not an admin';
   }
 }
+

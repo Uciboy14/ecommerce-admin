@@ -3,7 +3,7 @@ import { Schema, model, models } from "mongoose";
 //import bcrypt from "bcrypt";
 
 // define the user schema
-const UserSchema = new Schema({
+const NewUserSchema = new Schema({
   email: {
     type: String,
     unique: [true, "Email already exists"],
@@ -24,6 +24,13 @@ const UserSchema = new Schema({
   },
   image: {
     type: String,
+    default: null,
+  },
+  role: {
+    type: String,
+    required: [true, "Role is required"],
+    enum: ["admin", "user"], // only allow these two values
+    default: "user", // Default role to user
   },
 });
 
@@ -44,7 +51,7 @@ UserSchema.methods.comparePassword = async function (password) {
 **/
 
 // create or get the user model
-const User = models.User || model("User", UserSchema);
+const User = models.User || model("User", NewUserSchema);
 
 // export the user model
 export default User;

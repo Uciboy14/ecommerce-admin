@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
-import User from '@models/user';
-import { connectToDB } from '@utils/database';
+import User from '../../../../models/user';
+import { connectToDB } from '../../../../utils/database';
 
 export async function POST(request) {
   try {
@@ -31,7 +31,7 @@ export async function POST(request) {
         email: email,
         username: username.replace(" ", "").toLowerCase(),
         password: hashedPassword,
-        image: "",
+        image: null,
       });
 }
 

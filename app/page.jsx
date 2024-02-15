@@ -1,5 +1,4 @@
-
-import { authConfig } from "@/lib/auth";
+import { authConfig } from "../lib/auth";
 import { redirect } from "next/navigation";
 import { getCsrfToken } from "next-auth/react";
 import { getServerSession } from "next-auth";

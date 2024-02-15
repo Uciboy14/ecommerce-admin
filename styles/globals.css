@@ -82,11 +82,15 @@
 }
 
 .outline_btn {
-  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
+  @apply rounded-full border border-black bg-transparent px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
 }
 
 .head_text {
-  @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
+  @apply text-3xl mb-2 font-bold font-inter text-blue-900 sm:text-3xl;
+}
+
+.btn-primary {
+  @apply bg-blue-900 text-white px-4 py-1 rounded-md;
 }
 
 .orange_gradient {
@@ -132,9 +136,17 @@
 }
 
 .form_input {
-  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+  @apply border-2 border-gray-300 rounded-md px-1 w-full;
+  @apply mb-2;
 }
 
+.form_input:focus {
+  @apply border-blue-900;
+}
+
+.my_label {
+  @apply text-blue-900 text-lg font-semibold;
+}
 /* Nav Component */
 .logo_text {
   @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
